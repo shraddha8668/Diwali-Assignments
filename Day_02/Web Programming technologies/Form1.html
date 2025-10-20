@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form Validation</title>
+    <style>
+        .error-text {
+            color: red;
+            font-size: 14px;
+        }
+        input {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Registration Form</h2>
+
+    <form action="https://www.google.com" onsubmit="return validateForm()">
+
+        <!-- First Name -->
+        <label>First Name:</label>
+        <input type="text" id="fname" placeholder="Enter first name" onkeyup="validateFName()">
+        <span id="errorFName" class="error-text"></span>
+        <br><br>
+
+        <!-- Last Name -->
+        <label>Last Name:</label>
+        <input type="text" id="lname" placeholder="Enter last name" onkeyup="validateLName()">
+        <span id="errorLName" class="error-text"></span>
+        <br><br>
+
+        <!-- Email -->
+        <label>Email:</label>
+        <input type="text" id="email" placeholder="Enter email" onkeyup="validateEmail()">
+        <span id="errorEmail" class="error-text"></span>
+        <br><br>
+
+        <!-- User ID -->
+        <label>User ID:</label>
+        <input type="text" id="userid" placeholder="Enter user ID" onkeyup="validateUserId()">
+        <span id="errorUserId" class="error-text"></span>
+        <br><br>
+
+        <!-- Password -->
+        <label>Password:</label>
+        <input type="password" id="password" placeholder="Enter password" onkeyup="validatePassword()">
+        <span id="errorPassword" class="error-text"></span>
+        <br><br>
+
+        <!-- Confirm Password -->
+        <label>Confirm Password:</label>
+        <input type="password" id="confirmPassword" placeholder="Re-enter password" onkeyup="validateConfirmPassword()">
+        <span id="errorConfirmPassword" class="error-text"></span>
+        <br><br>
+
+        <input type="submit" value="Register">
+
+    </form>
+
+    <script>
+        // FORM VALIDATION FUNCTION
+        function validateForm() {
+            let valid = true;
+
+            if (!validateFName()) valid = false;
+            if (!validateLName()) valid = false;
+            if (!validateEmail()) valid = false;
+            if (!validateUserId()) valid = false;
+            if (!validatePassword()) valid = false;
+            if (!validateConfirmPassword()) valid = false;
+
+            return valid;
+        }
+
+
+        function validateFName() {
+            const fname = document.getElementById("fname").value.trim();
+            if (fname === "") {
+                document.getElementById("errorFName").innerHTML = "First name is required";
+                return false;
+            }
+            document.getElementById("errorFName").innerHTML = "";
+            return true;
+        }
+
+        function validateLName() {
+            const lname = document.getElementById("lname").value.trim();
+            if (lname === "") {
+                document.getElementById("errorLName").innerHTML = "Last name is required";
+                return false;
+            }
+            document.getElementById("errorLName").innerHTML = "";
+            return true;
+        }
+
+        function validateEmail() {
+            const email = document.getElementById("email").value.trim();
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (email === "") {
+                document.getElementById("errorEmail").innerHTML = "Email is required";
+                return false;
+            } else if (!emailPattern.test(email)) {
+                document.getElementById("errorEmail").innerHTML = "Invalid email format";
+                return false;
+            }
+
+            document.getElementById("errorEmail").innerHTML = "";
+            return true;
+        }
+
+        function validateUserId() {
+            const userid = document.getElementById("userid").value.trim();
+            if (userid === "") {
+                document.getElementById("errorUserId").innerHTML = "User ID is required";
+                return false;
+            }
+            document.getElementById("errorUserId").innerHTML = "";
+            return true;
+        }
+
+        function validatePassword() {
+            const password = document.getElementById("password").value;
+            if (password === "") {
+                document.getElementById("errorPassword").innerHTML = "Password is required";
+                return false;
+            } else if (password.length < 6) {
+                document.getElementById("errorPassword").innerHTML = "Password must be at least 6 characters";
+                return false;
+            }
+            document.getElementById("errorPassword").innerHTML = "";
+            return true;
+        }
+
+        function validateConfirmPassword() {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (confirmPassword === "") {
+                document.getElementById("errorConfirmPassword").innerHTML = "Please confirm password";
+                return false;
+            } else if (password !== confirmPassword) {
+                document.getElementById("errorConfirmPassword").innerHTML = "Passwords do not match";
+                return false;
+            }
+
+            document.getElementById("errorConfirmPassword").innerHTML = "";
+            return true;
+        }
+    </script>
+</body>
+</html>
